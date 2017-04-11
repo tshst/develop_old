@@ -1,0 +1,26 @@
+---
+- name: Playbookチュートリアル
+  hosts: all
+  become: true
+  tasks:
+    - name: libselinux-pythonをインストール
+      yum:
+        name: libselinux-python
+        state: present
+    - name: EPELリポジトリをインストール
+      yum:
+        name: epel-release
+        state: present
+    - name: Nginxインストール
+      yum:
+        name: nginx
+        state: present
+    - name: Nginxサービスの起動と自動起動設定
+      service:
+        name: nginx
+        state: started
+        enabled: true
+    - name: /tmp/dir1を作成
+      file:
+        path: /tmp/dir1
+        state: directory

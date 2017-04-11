@@ -1,0 +1,1 @@
+vagrant-machine ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant ansible_ssh_private_key_file=/Users/tshst/OneDrive/src/github.com/tshst/develop/ansible/tutorial/.vagrant/machines/default/virtualbox/private_key
