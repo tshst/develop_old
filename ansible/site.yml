@@ -49,9 +49,14 @@
         validate: sshd -t -f %s
       notify:
         - sshd再起動
+    - name: tmpディレクトリにパスフレーズなしのSSH鍵を生成
+      command: "/usr/bin/ssh-keygen -b 2048 -t rsa -N '' -f /tmp/new-id_rsa"
+      args:
+        creates: /tmp/new-id_rsa
 
   handlers:
     - name: sshd再起動
       service:
         name: sshd
         state: restarted
+    
