@@ -53,6 +53,13 @@
       command: "/usr/bin/ssh-keygen -b 2048 -t rsa -N '' -f /tmp/new-id_rsa"
       args:
         creates: /tmp/new-id_rsa
+    - name: 環境変数出力Play
+      command: "echo {{ ansible_env.HOME | quote }}"
+      register: echo_output
+    - name: echoの結果を標準出力に出力する
+      debug:
+        msg: "{{ echo_output.stdout }}"
+
 
   handlers:
     - name: sshd再起動
