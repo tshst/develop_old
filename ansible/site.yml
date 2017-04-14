@@ -44,7 +44,8 @@
       lineinfile:
         dest: /etc/ssh/sshd_config
         regexp: '^PermitRootLogin\s+'
-        line: PermitRootLogin without-password
+        #line: PermitRootLogin without-password
+        state: absent
         validate: sshd -t -f %s
       notify:
         - sshd再起動
