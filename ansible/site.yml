@@ -59,6 +59,16 @@
     - name: echoの結果を標準出力に出力する
       debug:
         msg: "{{ echo_output.stdout }}"
+#    ## 検証環境できたら動作検証する
+#    - name: 新規作成されたアプリ用ホスト情報をInventoryファイルに追加
+#      add_host:
+#        name: created-host
+#        groups: created, app
+#        ansible_host: "{{ created_host_ip }}"
+#        ansible_port: 22
+    - name: OSファミリーごとにグループ分け
+      group_by:
+        key: "{{ ansible_os_family }}"
 
 
   handlers:
