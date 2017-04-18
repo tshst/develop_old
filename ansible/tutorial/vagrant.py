@@ -74,7 +74,7 @@ def get_ssh_config():
 
 # list all the running boxes
 def list_running_boxes():
-    output = subprocess.check_output(["vagrant", "status"]).split('\n')
+    output = subprocess.check_output(["vagrant", "status"]).decode().split('\n')
 
     boxes = []
 
@@ -90,7 +90,7 @@ def list_running_boxes():
 def get_a_ssh_config(box_name):
     """Gives back a map of all the machine's ssh configurations"""
 
-    output = subprocess.check_output(["vagrant", "ssh-config", box_name])
+    output = subprocess.check_output(["vagrant", "ssh-config", box_name]).decode()
     config = SSHConfig()
     config.parse(StringIO(output))
     host_config = config.lookup(box_name)
