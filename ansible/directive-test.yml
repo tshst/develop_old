@@ -15,5 +15,5 @@
     - name: vagrantユーザが存在する場合にメッセージを表示
       debug:
         msg: このマシンにはvagrantユーザが存在します
-      when: "'vagrant' in username_list"
+      when: "'Vagrant' in username_list"
 
