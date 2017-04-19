@@ -1,0 +1,11 @@
+---
+- name: ホスト上のユーザ一覧を取得
+  hosts: all
+  tasks:
+    - name: /etc/passwdからユーザ名を抜き出す
+      command: cut --delimiter=":" --fields=1 /etc/passwd
+      register: usernames_result
+
+    - name: usernames_result 変数をdebug表示
+      debug:
+        var: usernames_result
