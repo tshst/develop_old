@@ -3,6 +3,9 @@
   hosts: localhost
   vars:
     my_var: hogehoge
+    admin_user:
+      name: tsh
+      uid: 777
   tasks:
     - name: my_varの値をデバッグ出力で確認
       debug:
@@ -10,3 +13,6 @@
     - name: 変数が一番最初のパターンでダブルクォートなし
       debug:
         msg: "{{ my_var }}はmy_varの値だよ"
+    - name: 構造化されたデータを扱う
+      debug:
+        msg: "{{ admin_user.name }}のuidは、{{ admin_user.uid }}"
