@@ -9,4 +9,4 @@
         msg: 変数 my_varの値は {{ my_var }} です
     - name: 変数が一番最初のパターンでダブルクォートなし
       debug:
-        msg: {{ my_var }}はmy_varの値だよ
+        msg: "{{ my_var }}はmy_varの値だよ"
