@@ -31,8 +31,10 @@
           - openssl
           - openssl-devel
       yum:
-        name: "{{ item }}"
+        name: "{{ package_name }}"
       with_items:
         - "{{ development_packages }}"
         - "{{ openssl_packages }}"
+      loop_control:
+        loop_var: package_name
 
