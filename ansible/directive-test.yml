@@ -37,4 +37,15 @@
         - "{{ openssl_packages }}"
       loop_control:
         loop_var: package_name
+    - name: マジック変数(hostvars)の動作確認
+      debug:
+        msg: "{{ hostvars['vagrant-machine'].ansible_distribution }}"
+      run_once: true
+    - name: マジック変数(groups)の動作確認
+      debug:
+        var: groups
+    - name: マジック変数(group_names)の動作確認
+      debug:
+        var: group_names
+
 
