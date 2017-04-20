@@ -21,4 +21,18 @@
         name: "{{ item }}"
         createhome: false
       with_items: "{{ username_list }}"
+    - name: 複数のリストをまとめてループ
+      become: true
+      vars:
+        development_packages:
+          - gcc
+          - make
+        openssl_packages:
+          - openssl
+          - openssl-devel
+      yum:
+        name: "{{ item }}"
+      with_items:
+        - "{{ development_packages }}"
+        - "{{ openssl_packages }}"
 
