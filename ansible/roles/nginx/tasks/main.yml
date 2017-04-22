@@ -18,3 +18,9 @@
     name: nginx
     state: started
     enabled: true
+
+- name: nginx.conf テンプレートを展開
+  template:
+    src: nginx.j2.conf
+    dest: /etc/nginx/nginx.conf
+    validate: nginx -t -c %s
