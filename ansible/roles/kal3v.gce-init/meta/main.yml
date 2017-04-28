@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Aleksandar Kalev
+  description: Create Google compute VM instances 
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: Debian
+      versions:
+      - jessie
+  galaxy_tags:
+    - GCE
+    - cloud
+    - compute
+    - system
+
+dependencies: []

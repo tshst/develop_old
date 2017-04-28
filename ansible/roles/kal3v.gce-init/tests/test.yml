@@ -1,0 +1,21 @@
+---
+
+- hosts: localhost
+  connection: local
+  vars:
+    use_pd: "True"
+    disk_size: "50"
+  roles:
+    - gce-init
+
+  tasks:
+    - name: Delete test instances
+      gce:
+        machine_type: "{{ machine_type }}"
+        image: "{{ image }}"
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"
+        zone: "{{ zone }}"
+        state: absent
+        instance_names: "{{ instance_names }}"
