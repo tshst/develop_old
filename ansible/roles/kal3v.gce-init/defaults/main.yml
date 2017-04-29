@@ -1,13 +1,13 @@
 ---
-service_account_email: ""
-credentials_file: ""
+service_account_email: "tshpaper@uguis.org"
+credentials_file: "/Users/tshst/credentials/ansible-c118f6e4632c.json"
 machine_type: "n1-standard-1"
-image: "debian-8"
+image: "centos-7-v20170426"
 project_id: ""
-zone: "europe-west1-b"
+zone: "asia-northeast1-a"
 instance_names: ""
 
 # Persistent disks settings
 use_pd: "False"
-disk_size: 100
+disk_size: 10
 disk_type: "pd-ssd"
