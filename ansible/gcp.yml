@@ -12,7 +12,7 @@
   tasks:
     - name: launch instances
       gce:
-        instance_names: sample-secretspy
+        instance_names: sample-enviroment
         machine_type: "{{ machine_type }}"
         image: "{{ image }}"
         zone: "{{ zone }}"
