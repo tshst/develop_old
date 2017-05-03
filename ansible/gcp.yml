@@ -3,10 +3,24 @@
   hosts: localhost
   connection: local
   gather_facts: no
-  roles:
-    - kal3v.gce-init
 
   vars:
-    machine_type: f1-micro
+    service_account_email: ansible@decoded-vision-166013.iam.gserviceaccount.com
+    credentials_file: /Users/tshst/credentials/ansible-42861101992b.json
     project_id: decoded-vision-166013
-    instance_name: sample
+    machine_type: f1-micro
+    image: centos-7-v20170426
+    zone: asia-northeast1-a
+    state: present
+  tasks:
+    - name: launch instances
+      gce:
+        instance_names: sample
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"
+        machine_type: "{{ machine_type }}"
+        image: "{{ image }}"
+        zone: "{{ zone }}"
+        state: "{{ state }}"
+
