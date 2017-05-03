@@ -5,13 +5,13 @@
     credentials_file: "{{ credentials_file }}"
     service_account_email: "{{ service_account_email }}"
     project_id: "{{ project_id }}"
-    size_gb: "{{disk_size}}"
-    disk_type: "{{disk_type}}"
-    image: "{{image}}"
-    name: "{{item}}pd"
+    size_gb: "{{ disk_size }}"
+    disk_type: "{{ disk_type }}"
+    image: "{{ image }}"
+    name: "{{ item }}pd"
     zone: "{{ zone }}"
   with_items: "{{ instance_names.split(',') }}"
-  when: "{{use_pd}}"
+  when: "{{ use_pd }}"
 
 - name: Launch instances with previously created disks
   gce:
@@ -21,24 +21,24 @@
     service_account_email: "{{ service_account_email }}"
     project_id: "{{ project_id }}"
     zone: "{{ zone }}"
-    disks: "{{item}}pd"
+    disks: "{{ item }}pd"
     state: present
-    instance_names: "{{item}}"
+    instance_names: "{{ item }}"
   with_items: "{{instance_names.split(',')}}"
-  when: "{{use_pd}}"
+  when: "{{ use_pd }}"
   register: gce
 
 - name: Save host data to be used with other roles in the playbook
   add_host: hostname={{ item.instance_data.0.public_ip }} groupname=gce_instances_ips
   with_items:
     - "{{ gce.results }}"
-  when: "{{use_pd}}"
+  when: "{{ use_pd }}"
 
 - name: Wait for SSH for instances to continue with other roles
   wait_for: delay=30 host={{ item.instance_data.0.public_ip }} port=22 state=started timeout=180
   with_items:
     - "{{ gce.results }}"
-  when: "{{use_pd}}"
+  when: "{{ use_pd }}"
 
 - name: Launch instances (without custom persistent disks)
   gce:
@@ -51,14 +51,14 @@
     state: present
     instance_names: "{{ instance_names }}"
   register: gce
-  when: "not {{use_pd}}"
+  when: "not {{ use_pd }}"
 
 - name: Save host data to be used with other roles in the playbook (without custom persistent disks)
   add_host: hostname={{ item.public_ip }} groupname=gce_instances_ips
   with_items: "{{ gce.instance_data | default([]) }}"
-  when: "not {{use_pd}}"
+  when: "not {{ use_pd }}"
 
 - name: Wait for SSH for instances to continue with other roles (without custom persistent disks)
   wait_for: delay=30 host={{ item.public_ip }} port=22 state=started timeout=180
   with_items: "{{ gce.instance_data | default([]) }}"
-  when: "not {{use_pd}}"
+  when: "not {{ use_pd }}"
