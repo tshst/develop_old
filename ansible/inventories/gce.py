@@ -93,7 +93,7 @@ import argparse
 
 from time import time
 
-import ConfigParser
+import configparser
 
 import logging
 logging.getLogger('libcloud.common.google').addHandler(logging.NullHandler())
@@ -186,14 +186,14 @@ class GceInventory(object):
 
         # Just display data for specific host
         if self.args.host:
-            print(self.json_format_dict(
+            print((self.json_format_dict(
                 self.inventory['_meta']['hostvars'][self.args.host],
-                pretty=self.args.pretty))
+                pretty=self.args.pretty)))
         else:
             # Otherwise, assume user wants all instances grouped
             zones = self.parse_env_zones()
-            print(self.json_format_dict(self.inventory,
-                                        pretty=self.args.pretty))
+            print((self.json_format_dict(self.inventory,
+                                        pretty=self.args.pretty)))
         sys.exit(0)
 
     def get_config(self):
@@ -214,7 +214,7 @@ class GceInventory(object):
         # This provides empty defaults to each key, so that environment
         # variable configuration (as opposed to INI configuration) is able
         # to work.
-        config = ConfigParser.SafeConfigParser(defaults={
+        config = configparser.SafeConfigParser(defaults={
             'gce_service_account_email_address': '',
             'gce_service_account_pem_file_path': '',
             'gce_project_id': '',
@@ -387,9 +387,9 @@ class GceInventory(object):
             self.inventory = self.cache.get_all_data_from_cache()
             hosts = self.inventory['_meta']['hostvars']
         except Exception as e:
-            print(
+            print((
                 "Invalid inventory file %s.  Please rebuild with -refresh-cache option."
-                % (self.cache.cache_path_cache))
+                % (self.cache.cache_path_cache)))
             raise
 
     def do_api_calls_update_cache(self):
