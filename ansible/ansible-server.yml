@@ -1,0 +1,19 @@
+---
+- name: create instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    machine_type: f1-micro
+    image: centos-7-v20170426
+    zone: asia-northeast1-a
+    state: present
+  tasks:
+    - name: ansible server create instance
+      gce:
+        instance_names: ansible001
+        machine_type: "{{ machine_type }}"
+        image: "{{ image }}"
+        zone: "{{ zone }}"
+        state: "{{ state }}"
