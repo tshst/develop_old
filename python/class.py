@@ -1,5 +1,11 @@
 class MyClass:
     """A simple example class """
+    # インスタンス化された時にだけ呼ばれる初期化処理
+    # オブジェクト自身(ここではMyClass)のことをselfという
+    def __init__(self):
+        # 初期化処理の時にdataという空のリストを作成する
+        self.data = []
+
     i = 12345
 
     # クラスの中の関数はメソッドと呼ぶ
@@ -7,13 +13,24 @@ class MyClass:
     def f(self):
         return "hello world"
 
+class Complex:
+    # 初期化の際に変数を指定できる
+    def __init__(self, realpart, imagpart):
+        self.r = realpart
+        self.i = imagpart
+
 if __name__ == '__main__':
     x = MyClass()
+    # インスタンス生成時にdataという空のリストが作成される
+    x.data.append('a')
+    print(x.data)
     y = MyClass()
     #　同じクラスを変数に代入しても、それぞれ別物として扱うことができるのがメリット
     # yのiの値を変更してもxのiには影響しない
     y.i = 54321
-    print(x.i)
     print(y.i)
-    print(x.f())
-    print(y.f())
+
+    # インスタンス化の際に値を渡すことができる
+    z = Complex(5.0, -4.5)
+    print(z.r)
+    print(z.i)
