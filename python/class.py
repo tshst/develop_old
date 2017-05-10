@@ -21,6 +21,15 @@ class Complex:
 
 if __name__ == '__main__':
     x = MyClass()
+    # インスタンス生成後に変数を追加することはできる
+    x.counter = 1
+    while x.counter < 10:
+        x.counter = x.counter*2
+    # 追加した変数に対して、変更を加えることもできる
+    print(x.counter)
+    # 不要になったら削除することもできる
+    del x.counter
+
     # インスタンス生成時にdataという空のリストが作成される
     x.data.append('a')
     print(x.data)
@@ -34,3 +43,5 @@ if __name__ == '__main__':
     z = Complex(5.0, -4.5)
     print(z.r)
     print(z.i)
+
+    
