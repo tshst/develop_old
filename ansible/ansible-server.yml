@@ -9,11 +9,38 @@
     image: centos-7-v20170426
     zone: asia-northeast1-a
     state: present
+
+  vars_prompt:
+    - name: "iname"
+      prompt: "Please input create instance name."
+      private: no
+      confirm: no
+
+    - name: "tname"
+      prompt: "Please input tags name of create instance."
+      private: no
+      confirm: no
+
+    - name: "state"
+      prompt: "Please input state of instance."
+      default: present
+      private: no
+      confirm: yes
+
   tasks:
     - name: ansible server create instance
       gce:
-        instance_names: ansible001
+        #instance_names: "{{ hostname }}"
+        instance_names: "{{ item }}"
         machine_type: "{{ machine_type }}"
         image: "{{ image }}"
         zone: "{{ zone }}"
         state: "{{ state }}"
+        tags: "{{ tname }}"
+      with_items:
+        - "{{ iname }}"
+#      register: gce
+
+#    - name: Wait for SSH come up
+#      wait_for: host={{ item.public_ip }} port=22 deley=10 timeout=60
+#      with_items: "{{ gce.instance_data }}"
