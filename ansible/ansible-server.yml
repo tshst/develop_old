@@ -39,8 +39,25 @@
         tags: "{{ tname }}"
       with_items:
         - "{{ iname }}"
-#      register: gce
+      register: gce
 
-#    - name: Wait for SSH come up
-#      wait_for: host={{ item.public_ip }} port=22 deley=10 timeout=60
-#      with_items: "{{ gce.instance_data }}"
+    #- name: gce enviroment debug
+    #  debug:
+    #    msg: "{{ item.public_ip }}"
+    #  with_items : "{{ gce.results[0].instance_data }}"
+
+    - name: Wait for SSH come up
+      wait_for:
+        host: "{{ item.public_ip }}"
+        port: 22
+        delay: 10
+        timeout: 60
+      with_items: "{{ gce.results[0].instance_data }}"
+      when: state == "present"
+
+    - name: Add host to groupname
+      add_host: 
+        hostname: "{{ item.public_ip }}"
+        groupname: "{{ tname }}"
+      with_items: "{{ gce.results[0].instance_data }}"
+      when: state == "present"
