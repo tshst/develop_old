@@ -37,6 +37,7 @@
         zone: "{{ zone }}"
         state: "{{ state }}"
         tags: "{{ tname }}"
+        metadata: '{"sshKeys":"ansible:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNyQh5SbMsOnzUvsRbwl9mrv8ztmcGjH4o8lMBN8DDXNmIxSGQ9j1/jd9In6OHa1pVmgSx7A1B6fdY37dXgPZprrMwr55/dRNM1FcX4RtJCVQDrDOdGnm/Osl1Y7us4woP3sghxF5WxICbN0io0y7N6U3VrQl1Oaf4n3K3CCVBcAnawrK/8aClQ2gQtyVuCY5vKUrXxWOqDVyOkNyKq6ZValWV6Uos3bRrusAjuXyh3fj4TsvIy4x11hIYfdqdklU+Q0z/3KzYcHGDVuQqaMDgBRaorSiBIihLfEOpVVkyBFg7MQGflX//BYnf1XAoyHSMUD/gagGy0swdQIGSM5jR ansible"}'
       with_items:
         - "{{ iname }}"
       register: gce
