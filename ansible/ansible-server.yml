@@ -16,11 +16,6 @@
       private: no
       confirm: no
 
-    - name: "tname"
-      prompt: "Please input tags name of create instance."
-      private: no
-      confirm: no
-
     - name: "state"
       prompt: "Please input state of instance."
       default: present
