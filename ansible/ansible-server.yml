@@ -25,7 +25,6 @@
   tasks:
     - name: ansible server create instance
       gce:
-        #instance_names: "{{ hostname }}"
         instance_names: "{{ item }}"
         machine_type: "{{ machine_type }}"
         image: "{{ image }}"
