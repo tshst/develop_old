@@ -64,6 +64,7 @@
   hosts: "{{ tname }}"
   connection: ssh
   become: True
+  gather_facts: True
   remote_user: ansible
   roles:
     - base

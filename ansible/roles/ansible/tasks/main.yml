@@ -1,0 +1,86 @@
+---
+# tasks file for ansible
+
+## make directory
+
+## install pakages
+- name: install rpm packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - "@Development Tools"
+    - readline-devel
+    - zlib-devel
+    - bzip2-devel
+    - sqlite-devel
+    - openssl-devel
+
+- name: git clone
+  become: False
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - repo: git://github.com/yyuu/pyenv.git
+      dest: /home/ansible/.pyenv
+    - repo: git://github.com/tshst/develop.git
+      dest: /home/ansible/develop
+
+- name: bashrc upload
+  become: False
+  copy:
+    src: files/bashrc
+    dest: ~/.bashrc
+
+- name: check python installed
+  vars:
+    python_version: 3.5.2
+  stat:
+    path: "/home/ansible/.pyenv/versions/{{ python_version }}/bin/python"
+  register: present_python
+
+- name: python install
+  become: False
+  vars:
+    pyenv_root: /home/ansible/.pyenv
+    python_version: "3.5.2"
+  environment:
+    PYENV_ROOT: "{{ pyenv_root }}"
+    PATH: "{{ pyenv_root }}/bin:{{ ansible_env.PATH }}"
+  shell: "{{ item }}"
+  args:
+    chdir: /home/ansible
+  with_items:
+    - "pyenv install {{ python_version }}"
+    - "pyenv local {{ python_version }}"
+  when: present_python.stat.exists == False
+
+- name: ansible install
+  become: False
+  vars:
+    pyenv_root: /home/ansible/.pyenv
+  environment:
+    PYENV_ROOT: "{{ pyenv_root }}"
+    PATH: "{{ pyenv_root }}/shims:{{ ansible_env.PATH }}"
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ansible
+    - apache-libcloud
+
+- name: secrets file upload
+  become: False
+  copy:
+    src: ~/credentials/
+    dest: ~/credentials
+    directory_mode: True
+
+- name: secrets file replace
+  become: False
+  replace:
+    dest: ~/credentials/secrets.py
+    regexp: 'Users/tshst'
+    replace: 'home/ansible'

@@ -1,0 +1,10 @@
+---
+# tasks file for base-gcp
+
+## firewall setting
+- name: create firewall rules
+  gce_net:
+    name: default
+    fwname: base-firewall-rules
+    allowed: 'tcp:80'
+    state: present
