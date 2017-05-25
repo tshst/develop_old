@@ -1,8 +1,5 @@
 ---
 # tasks file for ansible
-
-## make directory
-
 ## install pakages
 - name: install rpm packages
   yum:
@@ -54,7 +51,7 @@
     chdir: /home/ansible
   with_items:
     - "pyenv install {{ python_version }}"
-    - "pyenv local {{ python_version }}"
+    - "pyenv global {{ python_version }}"
   when: present_python.stat.exists == False
 
 - name: ansible install
@@ -76,7 +73,12 @@
   copy:
     src: ~/credentials/
     dest: ~/credentials
-    directory_mode: True
+
+- name: mode change of secrets file
+  become: False
+  file:
+    path: ~/credentials/secrets.py
+    mode: "u+x,g+x,o+x"
 
 - name: secrets file replace
   become: False
